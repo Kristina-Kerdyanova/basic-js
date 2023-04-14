@@ -17,23 +17,24 @@ const {
  */
 
 function createDreamTeam(members) {
-  if ( typeof members === "object") {
+  if (Array.isArray(members)) {
     let resArr = []
     let fun = (n) => {
       resArr.push(n[0]);
     }
 
-    let names = members.forEach((element) => {
+    members.forEach((element) => {
       if (typeof element === "string") {
-        element = element.replace(/ /g,'');
+        element = element.replace(/[^a-zа-яё]/gi, '').toUpperCase();
         fun(element);
+      } else {
+        return
       }
     });
 
     resArr = resArr.sort();
     resStr = resArr.join('');
-    return (resStr.toUpperCase());
-
+    return (resStr);
   } else {
     return false;
   }
